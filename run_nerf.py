@@ -875,7 +875,8 @@ def train():
 
             print(expname, i, psnr.numpy(), loss.numpy(), global_step.numpy())
             print('iter time {:.05f}'.format(dt))
-            with tf.summary.record_summaries_every_n_global_steps(args.i_print):
+            writer = tf.summary.create_file_writer(basedir)
+            with writer.as_default():
                 tf.summary.scalar('loss', loss)
                 tf.summary.scalar('psnr', psnr)
                 tf.summary.histogram('tran', trans)
@@ -900,7 +901,7 @@ def train():
                     os.makedirs(testimgdir, exist_ok=True)
                 imageio.imwrite(os.path.join(testimgdir, '{:06d}.png'.format(i)), to8b(rgb))
 
-                with tf.summary.record_summaries_every_n_global_steps(args.i_img):
+                with writer.as_default():
 
                     tf.summary.image('rgb', to8b(rgb)[tf.newaxis])
                     tf.summary.image(
@@ -913,7 +914,7 @@ def train():
 
                 if args.N_importance > 0:
 
-                    with tf.summary.record_summaries_every_n_global_steps(args.i_img):
+                    with writer.as_default():
                         tf.summary.image(
                             'rgb0', to8b(extras['rgb0'])[tf.newaxis])
                         tf.summary.image(
