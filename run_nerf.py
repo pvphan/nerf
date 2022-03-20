@@ -877,11 +877,11 @@ def train():
             print('iter time {:.05f}'.format(dt))
             writer = tf.summary.create_file_writer(basedir)
             with writer.as_default():
-                tf.summary.scalar('loss', loss)
-                tf.summary.scalar('psnr', psnr)
+                tf.summary.scalar('loss', loss, step=i)
+                tf.summary.scalar('psnr', psnr, step=i)
                 tf.summary.histogram('tran', trans)
                 if args.N_importance > 0:
-                    tf.summary.scalar('psnr0', psnr0)
+                    tf.summary.scalar('psnr0', psnr0, step=i)
 
             if i % args.i_img == 0:
 
@@ -909,7 +909,7 @@ def train():
                     tf.summary.image(
                         'acc', acc[tf.newaxis, ..., tf.newaxis])
 
-                    tf.summary.scalar('psnr_holdout', psnr)
+                    tf.summary.scalar('psnr_holdout', psnr, step=i)
                     tf.summary.image('rgb_holdout', target[tf.newaxis])
 
                 if args.N_importance > 0:
