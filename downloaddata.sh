@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p ./data
+mkdir -p ./data ./.output ./logs
 dataDirSize=$(ls ./data | wc -l)
 if [[ "$dataDirSize" -eq 0 ]]; then
     pushd ./data

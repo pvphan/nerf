@@ -14,6 +14,7 @@ RUN apt-get update
 #        zlib1g-dev
 
 RUN pip install --no-cache-dir \
+    configargparse==1.5.3 \
     imageio==2.16.1 \
     imageio-ffmpeg==0.4.5 \
     numpy==1.22.1 \
