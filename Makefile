@@ -8,11 +8,15 @@ RUN_FLAGS = \
 	--volume=${REPO_PATH}/data:${WORKDIR_PATH}/data:ro \
 	--volume=${OUTPUT_PATH}:/tmp/output \
 	--runtime=nvidia \
+	${IMAGE_TAG}
 
-shell: image
+shell: image downloaddata
 	docker run -it ${RUN_FLAGS} \
 		bash
 
 image:
 	docker build --tag ${IMAGE_TAG} .
+
+downloaddata:
+	./downloaddata.sh
 
