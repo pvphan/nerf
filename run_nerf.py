@@ -879,7 +879,7 @@ def train():
             with writer.as_default():
                 tf.summary.scalar('loss', loss, step=i)
                 tf.summary.scalar('psnr', psnr, step=i)
-                tf.summary.histogram('tran', trans)
+                tf.summary.histogram('tran', trans, step=i)
                 if args.N_importance > 0:
                     tf.summary.scalar('psnr0', psnr0, step=i)
 
@@ -903,24 +903,24 @@ def train():
 
                 with writer.as_default():
 
-                    tf.summary.image('rgb', to8b(rgb)[tf.newaxis])
+                    tf.summary.image('rgb', to8b(rgb)[tf.newaxis], step=i)
                     tf.summary.image(
-                        'disp', disp[tf.newaxis, ..., tf.newaxis])
+                        'disp', disp[tf.newaxis, ..., tf.newaxis], step=i)
                     tf.summary.image(
-                        'acc', acc[tf.newaxis, ..., tf.newaxis])
+                        'acc', acc[tf.newaxis, ..., tf.newaxis], step=i)
 
                     tf.summary.scalar('psnr_holdout', psnr, step=i)
-                    tf.summary.image('rgb_holdout', target[tf.newaxis])
+                    tf.summary.image('rgb_holdout', target[tf.newaxis], step=i)
 
                 if args.N_importance > 0:
 
                     with writer.as_default():
                         tf.summary.image(
-                            'rgb0', to8b(extras['rgb0'])[tf.newaxis])
+                            'rgb0', to8b(extras['rgb0'])[tf.newaxis], step=i)
                         tf.summary.image(
-                            'disp0', extras['disp0'][tf.newaxis, ..., tf.newaxis])
+                            'disp0', extras['disp0'][tf.newaxis, ..., tf.newaxis], step=i)
                         tf.summary.image(
-                            'z_std', extras['z_std'][tf.newaxis, ..., tf.newaxis])
+                            'z_std', extras['z_std'][tf.newaxis, ..., tf.newaxis], step=i)
 
         global_step.assign_add(1)
 
