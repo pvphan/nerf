@@ -3,6 +3,7 @@ REPO_PATH:=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 IMAGE_TAG=pvphan/nerf:0.1
 RUN_FLAGS = \
 	--rm \
+	--network=host \
 	-p 6006:6006 \
 	--volume=${REPO_PATH}:${WORKDIR_PATH} \
 	--volume=${REPO_PATH}/data:${WORKDIR_PATH}/data:ro \
