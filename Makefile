@@ -3,6 +3,7 @@ REPO_PATH:=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 IMAGE_TAG=pvphan/nerf:0.1
 RUN_FLAGS = \
 	--rm \
+	--port=6006:6006 \
 	--volume=${REPO_PATH}:${WORKDIR_PATH} \
 	--volume=${REPO_PATH}/data:${WORKDIR_PATH}/data:ro \
 	--volume=${REPO_PATH}/logs:/tmp/logs \
@@ -11,8 +12,7 @@ RUN_FLAGS = \
 	${IMAGE_TAG}
 
 shell: image downloaddata
-	docker run -it ${RUN_FLAGS} \
-		bash
+	docker run -it ${RUN_FLAGS} bash
 
 image:
 	docker build --tag ${IMAGE_TAG} .
